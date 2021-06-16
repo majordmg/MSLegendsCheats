@@ -4,7 +4,7 @@
     <CheatEntry>
       <ID>27</ID>
       <Description>"STATIC-HP-POINTER"</Description>
-      <LastState Value="325" RealAddress="208208C8"/>
+      <LastState Value="324" RealAddress="27AE2730"/>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>4 Bytes</VariableType>
       <Address>MapleLegends.exe+578360</Address>
@@ -20,7 +20,7 @@
     <CheatEntry>
       <ID>31</ID>
       <Description>"STATIC-X-PTR"</Description>
-      <LastState Value="14" RealAddress="19BA5A70"/>
+      <LastState Value="1292" RealAddress="25A4DEB8"/>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>4 Bytes</VariableType>
       <Address>MapleLegends.exe+579268</Address>
@@ -29,16 +29,8 @@
       </Offsets>
     </CheatEntry>
     <CheatEntry>
-      <ID>34</ID>
-      <Description>"Y"</Description>
-      <LastState Value="542396995" RealAddress="16072510"/>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>16072510</Address>
-    </CheatEntry>
-    <CheatEntry>
       <ID>35</ID>
-      <Description>"LEVEL_Y"</Description>
+      <Description>"VAC_Y_INJECT"</Description>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
@@ -54,34 +46,8 @@ mov [edi],eax
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
-      <ID>36</ID>
-      <Description>"No description"</Description>
-      <VariableType>4 Bytes</VariableType>
-      <Address>1BA7BD74</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>37</ID>
-      <Description>"X"</Description>
-      <VariableType>4 Bytes</VariableType>
-      <Address>1BA7BD6C</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>38</ID>
-      <Description>"no"</Description>
-      <LastState Value="3068810083" RealAddress="10FDAE30"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>10FDAE30</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>39</ID>
-      <Description>"no"</Description>
-      <LastState Value="2137598470" RealAddress="10FDAE28"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>10FDAE28</Address>
-    </CheatEntry>
-    <CheatEntry>
       <ID>40</ID>
-      <Description>"Auto Assemble script"</Description>
+      <Description>"bad X"</Description>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
@@ -95,6 +61,180 @@ mov [ebx],eax
 007F579E:
 mov [ebx],eax
 </AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"VAC_X_FULL"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : MapleLegends.exe
+  Version: 
+  Date   : 2021-05-14
+  Author : dan
+
+  This script does blah blah blah
+}
+
+define(address,"MapleLegends.exe"+3F579E)
+define(bytes,89 03 8B 7D 10)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [ebx],0
+  mov edi,[ebp+10]
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // mov [ebx],eax
+  // mov edi,[ebp+10]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: MapleLegends.exe+3F579E
+
+MapleLegends.exe+3F577B: DC 4D 34           - fmul qword ptr [ebp+34]
+MapleLegends.exe+3F577E: DE C1              - faddp 
+MapleLegends.exe+3F5780: DC 15 80 8A 8E 00  - fcom qword ptr [MapleLegends.exe+4E8A80]
+MapleLegends.exe+3F5786: DF E0              - fnstsw ax
+MapleLegends.exe+3F5788: 9E                 - sahf 
+MapleLegends.exe+3F5789: 72 08              - jb MapleLegends.exe+3F5793
+MapleLegends.exe+3F578B: DC 05 D0 89 8E 00  - fadd qword ptr [MapleLegends.exe+4E89D0]
+MapleLegends.exe+3F5791: EB 06              - jmp MapleLegends.exe+3F5799
+MapleLegends.exe+3F5793: DC 25 00 A3 8E 00  - fsub qword ptr [MapleLegends.exe+4EA300]
+MapleLegends.exe+3F5799: E8 FE 54 08 00     - call MapleLegends.exe+47AC9C
+// ---------- INJECTING HERE ----------
+MapleLegends.exe+3F579E: 89 03              - mov [ebx],eax
+// ---------- DONE INJECTING  ----------
+MapleLegends.exe+3F57A0: 8B 7D 10           - mov edi,[ebp+10]
+MapleLegends.exe+3F57A3: 85 FF              - test edi,edi
+MapleLegends.exe+3F57A5: 74 5E              - je MapleLegends.exe+3F5805
+MapleLegends.exe+3F57A7: FF B6 9C 00 00 00  - push [esi+0000009C]
+MapleLegends.exe+3F57AD: 8D 46 74           - lea eax,[esi+74]
+MapleLegends.exe+3F57B0: 83 C0 18           - add eax,18
+MapleLegends.exe+3F57B3: 50                 - push eax
+MapleLegends.exe+3F57B4: E8 DA C1 CF FF     - call MapleLegends.exe+F1993
+MapleLegends.exe+3F57B9: DD 5D F0           - fstp qword ptr [ebp-10]
+MapleLegends.exe+3F57BC: FF 76 3C           - push [esi+3C]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"VAC_Y_FULL"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : MapleLegends.exe
+  Version: 
+  Date   : 2021-05-14
+  Author : dan
+
+  This script does blah blah blah
+}
+
+define(address,"MapleLegends.exe"+3F5803)
+define(bytes,89 07 8B 5D 14)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [edi],0
+  mov ebx,[ebp+14]
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // mov [edi],eax
+  // mov ebx,[ebp+14]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: MapleLegends.exe+3F5803
+
+MapleLegends.exe+3F57E0: DC 4D 34           - fmul qword ptr [ebp+34]
+MapleLegends.exe+3F57E3: DE C1              - faddp 
+MapleLegends.exe+3F57E5: DC 15 80 8A 8E 00  - fcom qword ptr [MapleLegends.exe+4E8A80]
+MapleLegends.exe+3F57EB: DF E0              - fnstsw ax
+MapleLegends.exe+3F57ED: 9E                 - sahf 
+MapleLegends.exe+3F57EE: 72 08              - jb MapleLegends.exe+3F57F8
+MapleLegends.exe+3F57F0: DC 05 D0 89 8E 00  - fadd qword ptr [MapleLegends.exe+4E89D0]
+MapleLegends.exe+3F57F6: EB 06              - jmp MapleLegends.exe+3F57FE
+MapleLegends.exe+3F57F8: DC 25 00 A3 8E 00  - fsub qword ptr [MapleLegends.exe+4EA300]
+MapleLegends.exe+3F57FE: E8 99 54 08 00     - call MapleLegends.exe+47AC9C
+// ---------- INJECTING HERE ----------
+MapleLegends.exe+3F5803: 89 07              - mov [edi],eax
+// ---------- DONE INJECTING  ----------
+MapleLegends.exe+3F5805: 8B 5D 14           - mov ebx,[ebp+14]
+MapleLegends.exe+3F5808: 85 DB              - test ebx,ebx
+MapleLegends.exe+3F580A: 74 58              - je MapleLegends.exe+3F5864
+MapleLegends.exe+3F580C: FF B6 84 00 00 00  - push [esi+00000084]
+MapleLegends.exe+3F5812: 8D 46 74           - lea eax,[esi+74]
+MapleLegends.exe+3F5815: 50                 - push eax
+MapleLegends.exe+3F5816: E8 78 C1 CF FF     - call MapleLegends.exe+F1993
+MapleLegends.exe+3F581B: DD 5D F0           - fstp qword ptr [ebp-10]
+MapleLegends.exe+3F581E: FF 76 24           - push [esi+24]
+MapleLegends.exe+3F5821: 8D 7E 14           - lea edi,[esi+14]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"No description"</Description>
+      <LastState Value="50011326" RealAddress="0097BB68"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>MapleLegends.exe+57BB68</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>45</ID>
+      <Description>"No description"</Description>
+      <LastState Value="192088224" RealAddress="02FDC810"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>02FDC810</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"No description"</Description>
+      <LastState Value="686156780" RealAddress="14C26EC0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>14C26EC0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"No description"</Description>
+      <LastState Value="1" RealAddress="1F970668"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1F970668</Address>
     </CheatEntry>
   </CheatEntries>
   <CheatCodes>
@@ -329,6 +469,55 @@ mov [ebx],eax
         <Byte>14</Byte>
         <Byte>85</Byte>
         <Byte>DB</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry Color="20000000">
+      <Description>Change of mov [esi+24],eax</Description>
+      <AddressString>MapleLegends.exe+6DF7</AddressString>
+      <Before>
+        <Byte>97</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>18</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>46</Byte>
+        <Byte>24</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>75</Byte>
+        <Byte>94</Byte>
+        <Byte>E8</Byte>
+        <Byte>E7</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry Color="20000000">
+      <Description>Change of mov [edi+00000454],eax</Description>
+      <AddressString>MapleLegends.exe+4141A</AddressString>
+      <Before>
+        <Byte>39</Byte>
+        <Byte>00</Byte>
+        <Byte>03</Byte>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>87</Byte>
+        <Byte>54</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>3D</Byte>
+        <Byte>F8</Byte>
+        <Byte>82</Byte>
+        <Byte>8E</Byte>
       </After>
     </CodeEntry>
   </CheatCodes>

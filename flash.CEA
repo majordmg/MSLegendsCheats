@@ -1,0 +1,10 @@
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+0078F81E:
+jg 0078F848
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+0078F81E:
+jle 0078F848
+
